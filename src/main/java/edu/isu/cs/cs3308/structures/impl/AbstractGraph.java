@@ -140,6 +140,10 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 */
 	@Override
 	public int outDegree(V v) {
+		if (v != null && adjMap.containsKey(v)) {
+			return adjMap.get(v).size();
+		}
+
 		return 0;
 	}
 
@@ -150,8 +154,24 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * @param v
 	 */
 	@Override
-	public int inDegree(Vertex<V, E> v) {
-		return 0;
+	public int inDegree(V v) {
+		int inDegree = 0;
+
+		if (v != null) {
+			for (V k : adjMap.keySet()) {
+				// prevent self loop
+				if (!k.equals(v)) {
+					Edge<V, E> e = new Edge<>(k, v, null);
+
+					if (adjMap.get(k).contains(e)) {
+						inDegree++;
+					}
+				}
+
+			}
+		}
+
+		return inDegree;
 	}
 
 	/**
@@ -171,7 +191,7 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * @param v
 	 */
 	@Override
-	public Iterator<Edge<E>> incomingEdges(Vertex<V, E> v) {
+	public Iterator<Edge<E>> incomingEdges(V v) {
 		return null;
 	}
 
@@ -184,8 +204,15 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * @param e
 	 */
 	@Override
-	public void insertEdge(Vertex<V, E> u, Vertex<V, E> v, E e) {
+	public void insertEdge(V v, V u, E e) {
+		if (v == null || u == null)
+			return;
 
+		if (adjMap.containsKey(v)) {
+			Edge<V, E> edge = new Edge<>(v, u, e);
+			if (!adjMap.get(v).contains(edge))
+				adjMap.get(v).add(edge);
+		}
 	}
 
 	/**
@@ -194,7 +221,7 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * @param v
 	 */
 	@Override
-	public V removeVertex(Vertex<V, E> v) {
+	public V removeVertex(V v) {
 		return null;
 	}
 
