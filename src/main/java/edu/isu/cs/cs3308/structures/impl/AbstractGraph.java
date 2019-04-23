@@ -2,10 +2,7 @@ package edu.isu.cs.cs3308.structures.impl;
 
 import edu.isu.cs.cs3308.structures.Graph;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 
@@ -69,15 +66,21 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 */
 	@Override
 	public Iterator<Edge<V,E>> vertices() {
-		return null;
+
 	}
 
 	/**
 	 * Returns an iteration of all edges of the graph
 	 */
 	@Override
-	public Iterator<Edge<E>> edges() {
-		return null;
+	public Iterator<Edge<V, E>> edges() {
+		List<Edge<V, E>> edges = new ArrayList<>();
+
+		for (List<Edge<V, E>> list : adjMap.values()) {
+			edges.addAll(list);
+		}
+
+		return edges.iterator();
 	}
 
 	/**
@@ -180,7 +183,7 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * @param v
 	 */
 	@Override
-	public Iterator<Edge<E>> outgoingEdges(Vertex<V, E> v) {
+	public Iterator<Edge<V, E>> outgoingEdges(V v) {
 		return null;
 	}
 
@@ -191,8 +194,23 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * @param v
 	 */
 	@Override
-	public Iterator<Edge<E>> incomingEdges(V v) {
-		return null;
+	public Iterator<Edge<V, E>> incomingEdges(V v) {
+		List<Edge<V, E>> edges = new ArrayList<>();
+
+		if (v != null) {
+			for (V k : adjMap.keySet()) {
+				// prevent self loop
+				if (!k.equals(v)) {
+					for (Edge<V, E> edge : adjMap.get(k)) {
+						if (edge.getDest().equals(v))
+							edges.add(edge);
+					}
+				}
+
+			}
+		}
+
+		return edges.iterator();
 	}
 
 	/**
@@ -209,6 +227,7 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 			return;
 
 		if (adjMap.containsKey(v)) {
+			List<Edge<V, E>> edges = adjMap.get(v);
 			Edge<V, E> edge = new Edge<>(v, u, e);
 			if (!adjMap.get(v).contains(edge))
 				adjMap.get(v).add(edge);
@@ -216,54 +235,44 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	}
 
 	/**
-	 * Removes vertex v and all its incident edges from the graph
-	 *
-	 * @param v
-	 */
-	@Override
-	public V removeVertex(V v) {
-		return null;
-	}
-
-	/**
 	 * Removes edge e from the graph
 	 *
 	 * @param e
 	 */
 	@Override
-	public E removeEdge(Edge<E> e) {
-		return null;
-	}
-
-	/**
-	 * Removes vertex v and all its incident edges from the graph
-	 *
-	 * @param v
-	 */
-	@Override
-	public V removeVertex(V v) {
-		//TODO remove incoming edges
-
-		if (v != null && !adjMap.containsKey(v))
-			adjMap.remove(v);
-
-		return v;
-	}
-
-	/**
-	 * Removes edge e from the graph
-	 *
-	 * @param e
-	 */
-	@Override
-	public void removeEdge(V v, V u) {
-		if (v == null && u == null)
-			return;
-
-		if (adjMap.containsKey(v)) {
-			List<V> edges = adjMap.get(v);
-			if (edges.contains(u))
-				edges.remove(u);
+	public void removeEdge(Edge<V, E> e) {
+		if (e != null) {
+			if (adjMap.containsKey(e.getSrc())) {
+				adjMap.get(e.getSrc()).remove(e);
+			}
 		}
 	}
+
+	/**
+	 * Removes vertex v and all its incident edges from the graph
+	 *
+	 * @param v
+	 */
+	@Override
+	public void removeVertex(V v) {
+		if (v != null) {
+			if (adjMap.containsKey(v)) {
+				adjMap.remove(v);
+			}
+
+
+			List<Edge<V,E>> edges = new ArrayList<>();
+			for (List<Edge<V, E>> list: adjMap.values()) {
+				for (Edge<V, E> e : edges) {
+					if (e.getDest().equals(v))
+						edges.add(e);
+				}
+			}
+
+			for (Edge<V, E> edge : edges) {
+				adjMap.get(edge.getSrc()).remove(edge);
+			}
+		}
+	}
+
 }
