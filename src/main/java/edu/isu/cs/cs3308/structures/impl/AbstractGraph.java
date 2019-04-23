@@ -7,10 +7,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public abstract class AbstractGraph<V,E> implements Graph<V,E> {
-	Map<V, List<V>> adjMap;
+public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 
-
+	Map<V, List<Edge<V, E>>> adjMap;
 
 	/**
 	 * Returns the number of vertices of the graph
@@ -69,7 +68,7 @@ public abstract class AbstractGraph<V,E> implements Graph<V,E> {
 	 * Returns an iteration of all the vertices of the graph
 	 */
 	@Override
-	public Iterator<Vertex<V, E>> vertices() {
+	public Iterator<Edge<V,E>> vertices() {
 		return null;
 	}
 
@@ -89,7 +88,17 @@ public abstract class AbstractGraph<V,E> implements Graph<V,E> {
 	 * @param v
 	 */
 	@Override
-	public Edge<E> getEdge(Vertex<V, E> u, Vertex<V, E> v) {
+	public Edge<V, E> getEdge(V v, V u) {
+		if (v == null || u == null)
+			return null;
+
+		if (adjMap.containsKey(v)) {
+			for (Edge<V,E> edge : adjMap.get(v)) {
+				if (edge.getDest().equals(u))
+					return edge;
+			}
+		}
+
 		return null;
 	}
 
@@ -100,8 +109,10 @@ public abstract class AbstractGraph<V,E> implements Graph<V,E> {
 	 * @param e
 	 */
 	@Override
-	public Vertex<V, E>[] endVertices(Edge<E> e) {
-		return new Vertex[0];
+	public V[] endVertices(Edge<V, E> e) {
+		V[] ret = {e.getSrc(), e.getDest()};
+
+		retrun ret;
 	}
 
 	/**
@@ -112,8 +123,14 @@ public abstract class AbstractGraph<V,E> implements Graph<V,E> {
 	 * @param e
 	 */
 	@Override
-	public Vertex<V, E> opposite(Vertex<V, E> v, Edge<E> e) {
-		return null;
+	public V opposite(V v, Edge<V, E> e) {
+		if (v != null && e != null) {
+
+			if (e.getDest().equals(v))
+				return e.getSrc();
+			else
+				return e.getDest();
+		}
 	}
 
 	/**
@@ -122,7 +139,7 @@ public abstract class AbstractGraph<V,E> implements Graph<V,E> {
 	 * @param v
 	 */
 	@Override
-	public int outDegree(Vertex<V, E> v) {
+	public int outDegree(V v) {
 		return 0;
 	}
 
