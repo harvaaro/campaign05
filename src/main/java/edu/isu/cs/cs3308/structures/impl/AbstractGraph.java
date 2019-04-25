@@ -65,8 +65,8 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * Returns an iteration of all the vertices of the graph
 	 */
 	@Override
-	public Iterator<Edge<V,E>> vertices() {
-
+	public Iterator<V> vertices() {
+		return adjMap.keySet().iterator();
 	}
 
 	/**
@@ -184,6 +184,10 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 */
 	@Override
 	public Iterator<Edge<V, E>> outgoingEdges(V v) {
+		if (v != null && adjMap.containsKey(v)) {
+			return adjMap.get(v).iterator();
+		}
+
 		return null;
 	}
 
