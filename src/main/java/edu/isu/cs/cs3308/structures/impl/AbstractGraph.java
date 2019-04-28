@@ -42,26 +42,6 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	}
 
 	/**
-	 * Creates and returns a new Edge from vertex u to vertex v, storing element e; an error occurs
-	 * if there already exists an edge from u to v
-	 *
-	 * @param u
-	 * @param v
-	 * @param e
-	 */
-	@Override
-	public void insertEdge(V v, V u) {
-		if (v == null && u == null)
-			return;
-
-		if (adjMap.containsKey(v)) {
-			List<V> edges = adjMap.get(v);
-			if (!edges.contains(u))
-				edges.add(u);
-		}
-	}
-
-	/**
 	 * Returns an iteration of all the vertices of the graph
 	 */
 	@Override
@@ -87,8 +67,8 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * Returns the edge from vertex u to vertex v, if one exists, otherwise returns null.
 	 * For an undirected graph, there is no difference between getEdge(u, v) and getEdge(v, u)
 	 *
-	 * @param u
 	 * @param v
+	 * @param u
 	 */
 	@Override
 	public Edge<V, E> getEdge(V v, V u) {
@@ -113,9 +93,11 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 */
 	@Override
 	public V[] endVertices(Edge<V, E> e) {
-		V[] ret = {e.getSrc(), e.getDest()};
+		V[] ret = (V[]) new Object[2];
+		ret[0] = e.getSrc();
+		ret[1] = e.getDest();
 
-		retrun ret;
+		return ret;
 	}
 
 	/**
@@ -221,8 +203,8 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 * Creates and returns a new Edge from vertex u to vertex v, storing element e; an error occurs
 	 * if there already exists an edge from u to v
 	 *
-	 * @param u
 	 * @param v
+	 * @param u
 	 * @param e
 	 */
 	@Override

@@ -1,5 +1,7 @@
 package edu.isu.cs.cs3308.structures;
 
+import edu.isu.cs.cs3308.structures.impl.Edge;
+
 import java.util.Iterator;
 
 /**
@@ -7,60 +9,110 @@ import java.util.Iterator;
  */
 public interface Graph<V, E> {
 
-    /** Returns the number of vertices of the graph */
-    int numVertices();
-
-    /** Returns an iteration of all the vertices of the graph */
-    Iterator<Vertex<V, E>> vertices();
-
-    /** Returns the number of edges of the graph */
-    int numEdges();
-
-    /** Returns an iteration of all edges of the graph */
-    Iterator<Edge<E>> edges();
-
-    /** Returns the edge from vertex u to vertex v, if one exists, otherwise returns null.
-     *  For an undirected graph, there is no difference between getEdge(u, v) and getEdge(v, u)
+    /**
+     * Returns the number of vertices of the graph
      */
-    Edge<E> getEdge(Vertex<V, E> u, Vertex<V, E> v);
+    public int numVertices();
 
-    /** Returns an array containing the two endpoint vertices of edge e. If the graph is directed
-     *  the first vertex is the origin and the second is the destination.
+    /**
+     * Returns the number of edges of the graph
      */
-    Vertex<V, E>[] endVertices(Edge<E> e);
+    public int numEdges();
 
-    /** For edge e incident to vertex v, returns the other vertex of the edge; an error occurs
-     *  if e is not incident to v.
+    /**
+     * Creates and returns a new Vertex storing element v
+     *
+     * @param v
      */
-    Vertex<V, E> opposite(Vertex<V, E> v, Edge<E> e);
+    public V insertVertex(V v);
 
-    /** Returns the number of outgoing edges from vertex v. */
-    int outDegree(Vertex<V, E> v);
-
-    /** Returns the number of incoming edges to vertex v. For an undirected graph, this returns
-    *  the same value as does outDegree(v)
-    */
-    int inDegree(Vertex<V, E> v);
-
-    /** Returns an iteration of all outgoing edges from vertex v */
-    Iterator<Edge<E>> outgoingEdges(Vertex<V, E> v);
-
-    /** Returns an iteration of all incoming edges to vertex v. For an undirected graph, this
-     *  returns the same collection as does outgoingEdges(v)
+    /**
+     * Returns an iteration of all the vertices of the graph
      */
-    Iterator<Edge<E>> incomingEdges(Vertex<V, E> v);
+    public Iterator<V> vertices();
 
-    /** Creates and returns a new Vertex storing element v */
-    Vertex<V, E> insertVertex(V v);
+    /**
+     * Returns an iteration of all edges of the graph
+     */
+    public Iterator<Edge<V, E>> edges();
 
-    /** Creates and returns a new Edge from vertex u to vertex v, storing element e; an error occurs
+    /**
+     * Returns the edge from vertex u to vertex v, if one exists, otherwise returns null.
+     * For an undirected graph, there is no difference between getEdge(u, v) and getEdge(v, u)
+     *
+     * @param v
+     * @param u
+     */
+    public Edge<V, E> getEdge(V v, V u);
+
+    /**
+     * Returns an array containing the two endpoint vertices of edge e. If the graph is directed
+     * the first vertex is the origin and the second is the destination.
+     *
+     * @param e
+     */
+    public V[] endVertices(Edge<V, E> e);
+
+    /**
+     * For edge e incident to vertex v, returns the other vertex of the edge; an error occurs
+     * if e is not incident to v.
+     *
+     * @param v
+     * @param e
+     */
+    public V opposite(V v, Edge<V, E> e);
+
+    /**
+     * Returns the number of outgoing edges from vertex v.
+     *
+     * @param v
+     */
+    public int outDegree(V v);
+
+    /**
+     * Returns the number of incoming edges to vertex v. For an undirected graph, this returns
+     * the same value as does outDegree(v)
+     *
+     * @param v
+     */
+    public int inDegree(V v);
+
+    /**
+     * Returns an iteration of all outgoing edges from vertex v
+     *
+     * @param v
+     */
+    public Iterator<Edge<V, E>> outgoingEdges(V v);
+
+    /**
+     * Returns an iteration of all incoming edges to vertex v. For an undirected graph, this
+     * returns the same collection as does outgoingEdges(v)
+     *
+     * @param v
+     */
+    public Iterator<Edge<V, E>> incomingEdges(V v);
+
+    /**
+     * Creates and returns a new Edge from vertex u to vertex v, storing element e; an error occurs
      * if there already exists an edge from u to v
+     *
+     * @param v
+     * @param u
+     * @param e
      */
-    void insertEdge(Vertex<V, E> u, Vertex<V, E> v, E e);
+    public void insertEdge(V v, V u, E e);
 
-    /** Removes vertex v and all its incident edges from the graph */
-    V removeVertex(Vertex<V, E> v);
+    /**
+     * Removes edge e from the graph
+     *
+     * @param e
+     */
+    public void removeEdge(Edge<V, E> e);
 
-    /** Removes edge e from the graph */
-    E removeEdge(Edge<E> e);
+    /**
+     * Removes vertex v and all its incident edges from the graph
+     *
+     * @param v
+     */
+    public void removeVertex(V v);
 }
