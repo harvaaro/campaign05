@@ -71,8 +71,8 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	}
 
 	/**
-	 * Returns the edge from vertex u to vertex v, if one exists, otherwise returns null.
-	 * For an undirected graph, there is no difference between getEdge(u, v) and getEdge(v, u)
+	 * Returns the edge from vertex v to vertex u, if one exists, otherwise returns null.
+	 * For an undirected graph, there is no difference between getEdge(v, u) and getEdge(u, v)
 	 *
 	 * @param v
 	 * @param u
@@ -209,8 +209,8 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	}
 
 	/**
-	 * Creates and returns a new Edge from vertex u to vertex v, storing element e; an error occurs
-	 * if there already exists an edge from u to v
+	 * Creates and returns a new Edge from vertex v to vertex u, storing element e; an error occurs
+	 * if there already exists an edge from v to u
 	 *
 	 * @param v
 	 * @param u

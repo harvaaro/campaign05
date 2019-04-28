@@ -24,10 +24,10 @@ public class FileParser {
 		return list;
 	}
 
-	<V, E> UnweightedGraph<V, E> Parse(List<String> list) {
+	UnweightedGraph<String, Integer> Parse(List<String> list) {
 		// TODO
-		UnweightedGraph<V, E> ugraph = new UnweightedGraph<>();
-		WeightedGraph<V, E> wgraph = new WeightedGraph<>();
+		UnweightedGraph<String, Integer> ugraph = new UnweightedGraph<>();
+		WeightedGraph<String, Integer> wgraph = new WeightedGraph<>();
 
 		System.out.println("\nCurrent Network Configuration:");
 		System.out.println("-----------------------------");
@@ -35,6 +35,8 @@ public class FileParser {
 		for (String node : list) {
 			String[] split1 = node.split(":");
 			String[] split2 = split1[1].split(" ");
+
+//			ugraph.insertVertex(split1[0]);
 
 			for (int i = 1; i < split2.length; i++) {
 				String[] split3 = split2[i].split("\\(");
@@ -44,6 +46,8 @@ public class FileParser {
 					System.out.println(split1[0] + "\t->\t" + split2[i] + "\t(" + weight + ")");
 				} else {
 					System.out.println(split1[0] + "\t->\t" + split2[i]);
+//					ugraph.insertVertex(split2[i]);
+//					ugraph.insertEdge(split1[0], split2[i], 0);
 				}
 			}
 		}
