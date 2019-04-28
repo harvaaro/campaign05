@@ -6,6 +6,12 @@ import java.util.Iterator;
 
 /**
  * Interface defining the basic operations of a Graph ADT
+ *
+ * Written from the code shown in class and
+ * updated to include the modified methods
+ *
+ * @author Isaac Griffith
+ * @author Aaron Harvey
  */
 public interface Graph<V, E> {
 

@@ -2,6 +2,11 @@ package edu.isu.cs.cs3308.structures.impl;
 
 import java.util.Objects;
 
+/**
+ * Written from teh code shown in class
+ *
+ * @author Isaac Griffith
+ */
 public class Edge<V, E> {
 
 	V src;

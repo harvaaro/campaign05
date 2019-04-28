@@ -1,0 +1,130 @@
+package edu.isu.cs.cs3308.structures.impl;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.List;
+
+/**
+ * A class for the weighted graph
+ *
+ * @author Aaron Harvey
+ */
+public class Driver {
+	private static String currentFile = GetFile("0");
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		while (true) {
+			String selection = GetUserRequest(br);
+			ProcessUserRequest(selection, br);
+			if (selection.equals("4"))
+				break;
+		}
+
+		br.close();
+	}
+
+	private static String GetUserRequest(BufferedReader br) throws IOException {
+		System.out.println(
+				"\nMenu\n----\n" +
+						"0: Select a Graph File (Current: " + currentFile + ")\n" +
+						"1: Print The Current Network Configuration\n" +
+						"2: View Routing Table for a Node\n" +
+						"3: Find Shortest Path from One Node to Another\n" +
+						"4: Exit"
+		);
+		System.out.println("\nSelection: ");
+		String request = br.readLine();
+		return request;
+	}
+
+	private static void ProcessUserRequest(String selection, BufferedReader br) throws IOException {
+		switch (selection) {
+			case "0":
+				GetUserFileSelection(br);
+				break;
+			case "1":
+				PrintConfiguration();
+				break;
+			case "2":
+				GetRoutingTable(br);
+				break;
+			case "3":
+				GetShortestPath(br);
+				break;
+			case "4":
+				System.out.println("\nGoodbye!");
+				break;
+			default:
+				System.out.println("Invalid selection: " + selection);
+		}
+	}
+
+	private static void GetUserFileSelection(BufferedReader br) throws IOException {
+		System.out.println("\nSelect a file:");
+		for (int i = 0; i < 10; i++)
+			System.out.println(i + ": " + GetFile(i + ""));
+
+		System.out.println("\nFile selection:");
+
+		String selection = br.readLine();
+		try {
+			String file = GetFile(selection);
+			currentFile = file;
+		} catch (Exception e) {
+			System.out.println("Invalid selection");
+		}
+	}
+
+	private static String GetFile(String index) {
+		switch (index) {
+			case "0":
+				return "data/test.graph";
+			case "1":
+				return "data/test_weighted.graph";
+			case "2":
+				return "data/unweighted_100.graph";
+			case "3":
+				return "data/unweighted_250.graph";
+			case "4":
+				return "data/unweighted_500.graph";
+			case "5":
+				return "data/unweighted_1000.graph";
+			case "6":
+				return "data/weighted_100.graph";
+			case "7":
+				return "data/weighted_250.graph";
+			case "8":
+				return "data/weighted_500.graph";
+			case "9":
+				return "data/weighted_1000.graph";
+			default:
+				throw new IllegalArgumentException();
+		}
+	}
+
+	private static void PrintConfiguration() {
+		FileParser fp = new FileParser();
+		List<String> list = fp.ReadFile(currentFile);
+		fp.Parse(list);
+	}
+
+	private static void GetRoutingTable(BufferedReader br) throws IOException {
+		System.out.println("\nNode to view: ");
+		String inputNode = br.readLine();
+
+		//TODO
+	}
+
+	private static void GetShortestPath(BufferedReader br) throws IOException {
+		System.out.println("\nStart node:");
+		String inputNodeA = br.readLine();
+		System.out.println("End node:");
+		String inputNodeB = br.readLine();
+
+		System.out.println("\nPath:");
+
+		//TODO
+	}
+}

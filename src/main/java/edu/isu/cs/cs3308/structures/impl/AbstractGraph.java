@@ -4,6 +4,13 @@ import edu.isu.cs.cs3308.structures.Graph;
 
 import java.util.*;
 
+/**
+ * Written from the code shown in class and
+ * adjusted to fix the generic array creation
+ *
+ * @author Isaac Griffith
+ * @author Aaron Harvey
+ */
 public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 
 	Map<V, List<Edge<V, E>>> adjMap;
@@ -22,7 +29,7 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	@Override
 	public int numEdges() {
 		int[] sum = {0};
-		adjMap.values().forEach( v -> {
+		adjMap.values().forEach(v -> {
 			sum[0] += v.size();
 		});
 		return sum[0];
@@ -76,7 +83,7 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 			return null;
 
 		if (adjMap.containsKey(v)) {
-			for (Edge<V,E> edge : adjMap.get(v)) {
+			for (Edge<V, E> edge : adjMap.get(v)) {
 				if (edge.getDest().equals(u))
 					return edge;
 			}
@@ -116,6 +123,8 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 			else
 				return e.getDest();
 		}
+
+		return v;
 	}
 
 	/**
@@ -246,9 +255,8 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 				adjMap.remove(v);
 			}
 
-
-			List<Edge<V,E>> edges = new ArrayList<>();
-			for (List<Edge<V, E>> list: adjMap.values()) {
+			List<Edge<V, E>> edges = new ArrayList<>();
+			for (List<Edge<V, E>> list : adjMap.values()) {
 				for (Edge<V, E> e : edges) {
 					if (e.getDest().equals(v))
 						edges.add(e);
