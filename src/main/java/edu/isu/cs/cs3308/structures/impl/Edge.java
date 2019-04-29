@@ -18,8 +18,8 @@ public class Edge<V, E> {
 		if (this == o) return true;
 		if (!(o instanceof Edge)) return false;
 		Edge<?, ?> edge = (Edge<?, ?>) o;
-		return getSrc().equals(edge.getSrc()) &&
-				getDest().equals(edge.getDest());
+		return Objects.equals(getSrc(), edge.getSrc()) &&
+				Objects.equals(getDest(), edge.getDest());
 	}
 
 	@Override
