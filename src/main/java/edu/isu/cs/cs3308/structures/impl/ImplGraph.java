@@ -16,24 +16,12 @@ public class ImplGraph<V, E> extends AbstractGraph<V, E> {
 		Iterator<Edge<V, E>> edges = this.edges();
 		for (int v = 0; v < numVertices(); v++) {
 			V vertex = vertices.next();
-			System.out.println("\nvert =\t" + v);
 
-			//FIXME DEBUG
-			System.out.println("val =\t" + vertex.toString());
-			System.out.println("ins =\t" + this.inDegree(vertex));
-			System.out.println("outs =\t" + this.outDegree(vertex));
 			Iterator<Edge<V, E>> outEdges = this.outgoingEdges(vertex);
-
 			int outNum = this.outDegree(vertex);
 
 			for (int e = 0; e < outNum; e++) {
 				Edge<V, E> edge = outEdges.next();
-
-				//FIXME DEBUG
-				System.out.println("\nedge =\t" + e);
-				System.out.println("src =\t" + edge.getSrc());
-				System.out.println("dest =\t" + edge.getDest());
-				System.out.println("pow =\t" + edge.getWeight());
 
 				V[] edgeVertices = this.endVertices(edge);
 				if (edge.getWeight() != null) {

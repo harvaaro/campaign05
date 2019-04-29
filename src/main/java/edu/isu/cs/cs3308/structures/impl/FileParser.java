@@ -35,17 +35,11 @@ public class FileParser {
 
 			graph.insertVertex(split1[0]);
 
-			//FIXME DEBUG
-			System.out.println("\n" + split1[0]);
-
 			for (int i = 1; i < split2.length; i++) {
 				String[] split3 = split2[i].split("\\(");
 				split2[i] = split3[0];
 
 				graph.insertVertex(split2[i]);
-
-				//FIXME DEBUG
-				System.out.println(split2[i]);
 
 				if (split3.length > 1) {
 					String weight = split3[1].substring(0, split3[1].length() - 1);
@@ -54,9 +48,6 @@ public class FileParser {
 					graph.insertEdge(split1[0], split2[i], null);
 				}
 			}
-
-			//FIXME DEBUG
-			graph.PrintConfig();
 		}
 
 		return graph;
