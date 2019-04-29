@@ -13,7 +13,7 @@ import java.util.*;
  */
 public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 
-	Map<V, List<Edge<V, E>>> adjMap;
+	Map<V, List<Edge<V, E>>> adjMap = new HashMap<>();
 
 	/**
 	 * Returns the number of vertices of the graph
