@@ -45,7 +45,7 @@ public class FileParser {
 					String weight = split3[1].substring(0, split3[1].length() - 1);
 					graph.insertEdge(split1[0], split2[i], parseInt(weight));
 				} else {
-					graph.insertEdge(split1[0], split2[i], 0);
+					graph.insertEdge(split1[0], split2[i], null);
 				}
 			}
 		}

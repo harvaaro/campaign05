@@ -110,7 +110,7 @@ public class Driver {
 	}
 
 	private static void PrintConfiguration() {
-		//TODO
+		graph.PrintConfig();
 	}
 
 	private static void ParseGraph() {
