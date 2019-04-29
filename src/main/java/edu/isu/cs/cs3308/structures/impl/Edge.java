@@ -11,7 +11,7 @@ public class Edge<V, E> {
 
 	V src;
 	V dest;
-	E element;
+	E weight;
 
 	@Override
 	public boolean equals(Object o) {
@@ -27,10 +27,10 @@ public class Edge<V, E> {
 		return Objects.hash(getSrc(), getDest());
 	}
 
-	public Edge(V src, V dest, E element) {
+	public Edge(V src, V dest, E weight) {
 		this.src = src;
 		this.dest = dest;
-		this.element = element;
+		this.weight = weight;
 	}
 
 	public V getSrc() {
@@ -49,11 +49,11 @@ public class Edge<V, E> {
 		this.dest = dest;
 	}
 
-	public E getElement() {
-		return element;
+	public E getWeight() {
+		return weight;
 	}
 
-	public void setElement(E element) {
-		this.element = element;
+	public void setWeight(E weight) {
+		this.weight = weight;
 	}
 }

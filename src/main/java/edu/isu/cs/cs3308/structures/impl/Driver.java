@@ -11,9 +11,13 @@ import java.util.List;
  * @author Aaron Harvey
  */
 public class Driver {
+
 	private static String currentFile = GetFile("0");
+	private static ImplGraph<String, Integer> graph = new ImplGraph<>();
 
 	public static void main(String[] args) throws IOException {
+		ParseGraph();
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			String selection = GetUserRequest(br);
@@ -105,9 +109,13 @@ public class Driver {
 	}
 
 	private static void PrintConfiguration() {
+		//TODO
+	}
+
+	private static void ParseGraph() {
 		FileParser fp = new FileParser();
 		List<String> list = fp.ReadFile(currentFile);
-		fp.Parse(list);
+		graph = fp.Parse(list);
 	}
 
 	private static void GetRoutingTable(BufferedReader br) throws IOException {
