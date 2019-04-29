@@ -27,7 +27,6 @@ public class FileParser {
 	}
 
 	ImplGraph<String, Integer> Parse(List<String> list) {
-		// TODO
 		ImplGraph<String, Integer> graph = new ImplGraph<>();
 
 		for (String node : list) {

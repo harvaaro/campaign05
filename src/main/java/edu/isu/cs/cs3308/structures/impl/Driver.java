@@ -76,6 +76,7 @@ public class Driver {
 		try {
 			String file = GetFile(selection);
 			currentFile = file;
+			ParseGraph();
 		} catch (Exception e) {
 			System.out.println("Invalid selection");
 		}
@@ -116,6 +117,11 @@ public class Driver {
 		FileParser fp = new FileParser();
 		List<String> list = fp.ReadFile(currentFile);
 		graph = fp.Parse(list);
+
+		System.out.println("\n\tParse Information:");
+		System.out.println("--------------------------");
+		System.out.println("Number of Vertices:\t" + graph.numVertices());
+		System.out.println("Number of Edges:\t" + graph.numEdges());
 	}
 
 	private static void GetRoutingTable(BufferedReader br) throws IOException {
