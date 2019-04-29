@@ -28,11 +28,23 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	 */
 	@Override
 	public int numEdges() {
-		int[] sum = {0};
-		adjMap.values().forEach(v -> {
-			sum[0] += v.size();
-		});
-		return sum[0];
+//		int[] sum = {0};
+//		adjMap.values().forEach(v -> {
+//			sum[0] += v.size();
+//		});
+//		return sum[0];
+
+		int sum = 0;
+		int vertNum = numVertices();
+		Iterator<V> vertex = vertices();
+		for (int v = 0; v < vertNum; v++) {
+			int venum = adjMap.get(vertex.next()).size();
+			sum += venum;
+
+			//FIXME DEBUG
+			System.out.println("V["+v+"] =\t"+venum);
+		}
+		return sum;
 	}
 
 	/**
@@ -43,7 +55,7 @@ public abstract class AbstractGraph<V, E> implements Graph<V, E> {
 	@Override
 	public V insertVertex(V v) {
 		if (v != null || !adjMap.containsKey(v))
-			adjMap.put(v, new LinkedList<>());
+			adjMap.put(v, new ArrayList<>());
 
 		return v;
 	}
